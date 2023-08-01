@@ -44,7 +44,7 @@ body{
 
 .who_won {
     position: absolute;
-    bottom: 40px;
+    top: 80px;
     font-size: 22px;
 }
 

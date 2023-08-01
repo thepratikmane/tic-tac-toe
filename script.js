@@ -36,8 +36,8 @@
 let container = document.querySelector('.container');
 let boxes = document.querySelectorAll('.grid-item'); // returns nodelist "boxes"
 let player_turn_span = document.querySelector('.player_turn span');
-let player_won_span = document.querySelector('.who_won span')
-let new_game = document.querySelector('.new_game')
+let player_won_span = document.querySelector('.who_won span');
+let new_game = document.querySelector('.new_game');
 // initialising matrix
 let mat = [];
 
@@ -87,9 +87,9 @@ function insertO(event) {
 }
 
 let timesClicked = 0;
-function codeSameForXandO(){
+function codeSameForXandO() {
     if (timesClicked >= 9) {
-        return player_won_span.innerText = "It's a draw"
+        return player_won_span.innerText = "It's a draw";
     }
 
     //5. 
@@ -100,34 +100,31 @@ function codeSameForXandO(){
     for (let i = 0; i < arr.length; i = i + 3) {
         mat.push(arr.slice(i, i + 3));
     }
-    if(checkRows(mat)) {
-        disableFurtherClicking();
-        showNewGameButton();
-        return player_won_span.innerText =  `player ${checkRows(mat)} won`;
-    }else if (checkCols(mat)) {
-        disableFurtherClicking();
-        showNewGameButton();
-       return player_won_span.innerText =  `player ${checkCols(mat)} won`;
-    }else if (checkDiagonals(mat)) {
-        disableFurtherClicking();
-        showNewGameButton();
-        return player_won_span.innerText =  `player ${checkDiagonals(mat)} won`;
-    } else return ;
-    
+    if (checkRows(mat)) {
+        functionAfterWin();
+        return player_won_span.innerText = `player ${checkRows(mat)} won`;
+    } else if (checkCols(mat)) {
+        functionAfterWin();
+        return player_won_span.innerText = `player ${checkCols(mat)} won`;
+    } else if (checkDiagonals(mat)) {
+        functionAfterWin();
+        return player_won_span.innerText = `player ${checkDiagonals(mat)} won`;
+    } else return;
+
 }
 
 
 
 //12. takes the matrix and checks if elems in each array is same
-function checkIfEquals(mat){
+function checkIfEquals(mat) {
     for (let i = 0; i < mat.length; i++) {
         if (mat[i].includes('')) continue; //8. 
         //9. Every elem eq?
-         if(mat[i].every((val, i, arr) => val === arr[0])) {
+        if (mat[i].every((val, i, arr) => val === arr[0])) {
             return mat[i][0]; //12. 
-         } else {
+        } else {
             return false;
-         }
+        }
     }
 
 }
@@ -145,7 +142,7 @@ function checkCols(mat) {
 
     for (let i = 0; i < mat.length; i++) {
         for (let j = 0; j < mat[0].length; j++) {
-            trans_mat[i][j] = mat[j][i]
+            trans_mat[i][j] = mat[j][i];
         }
     }
     return checkIfEquals(trans_mat);
@@ -156,14 +153,14 @@ function checkDiagonals(mat) {
     //11. 
     let arr_1 = [];
     let arr_2 = [];
-    let diagMat = []
-    for(let i = 0; i < mat.length; i++) {
-        arr_1.push(mat[i][i]) 
+    let diagMat = [];
+    for (let i = 0; i < mat.length; i++) {
+        arr_1.push(mat[i][i]);
     }
     diagMat[0] = arr_1;
 
     let j = mat.length - 1;
-    for(let i = 0; i < mat.length; i++) {
+    for (let i = 0; i < mat.length; i++) {
         arr_2.push(mat[i][j]);
         j--;
     }
@@ -175,15 +172,27 @@ function checkDiagonals(mat) {
 
 }
 
-//no clicking after win condition
-function disableFurtherClicking(){
-    container.style.pointerEvents = 'none';
+function functionAfterWin() {
+    //no clicking after win condition
+    function disableFurtherClicking() {
+        container.style.pointerEvents = 'none';
+    }
+
+    function displayNone() {
+        player_turn_span.parentElement.style.display = 'none';
+    }
+
+    function showNewGameButton() {
+        new_game.style.display = 'block';
+        new_game.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+
+    disableFurtherClicking();
+    displayNone();
+    showNewGameButton();
 }
 
-function showNewGameButton() {
-    new_game.style.display = 'block';
-    new_game.addEventListener('click', () => {
-        location.reload();
-    })
-}
+
 
