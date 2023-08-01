@@ -44,8 +44,15 @@ body{
 
 .who_won {
     position: absolute;
-    bottom: 50px;
+    bottom: 40px;
     font-size: 22px;
+}
+
+.new_game {
+    position: absolute;
+    bottom: 100px;
+    cursor: pointer;
+    display: none;
 }
 
 

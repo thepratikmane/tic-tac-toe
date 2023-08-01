@@ -37,9 +37,10 @@ let container = document.querySelector('.container');
 let boxes = document.querySelectorAll('.grid-item'); // returns nodelist "boxes"
 let player_turn_span = document.querySelector('.player_turn span');
 let player_won_span = document.querySelector('.who_won span')
-
+let new_game = document.querySelector('.new_game')
 // initialising matrix
 let mat = [];
+
 
 //. 4  
 boxes_copy = boxes;
@@ -70,7 +71,7 @@ function insertX(event) {
     //3. removing eventlistener
     box.removeEventListener('click', insertXorO);
     player_turn_span.innerText = "O";
-    console.log(codeSameForXandO());
+    codeSameForXandO();
 
 }
 
@@ -81,14 +82,12 @@ function insertO(event) {
     box.innerText = 'O';
     box.removeEventListener('click', insertXorO);
     player_turn_span.innerText = "X";
-
-    console.log(codeSameForXandO());
+    codeSameForXandO();
 
 }
 
 let timesClicked = 0;
 function codeSameForXandO(){
-    console.log(++timesClicked);
     if (timesClicked >= 9) {
         return player_won_span.innerText = "It's a draw"
     }
@@ -102,10 +101,16 @@ function codeSameForXandO(){
         mat.push(arr.slice(i, i + 3));
     }
     if(checkRows(mat)) {
+        disableFurtherClicking();
+        showNewGameButton();
         return player_won_span.innerText =  `player ${checkRows(mat)} won`;
     }else if (checkCols(mat)) {
+        disableFurtherClicking();
+        showNewGameButton();
        return player_won_span.innerText =  `player ${checkCols(mat)} won`;
     }else if (checkDiagonals(mat)) {
+        disableFurtherClicking();
+        showNewGameButton();
         return player_won_span.innerText =  `player ${checkDiagonals(mat)} won`;
     } else return ;
     
@@ -168,5 +173,17 @@ function checkDiagonals(mat) {
     return checkIfEquals(diagMat);
 
 
+}
+
+//no clicking after win condition
+function disableFurtherClicking(){
+    container.style.pointerEvents = 'none';
+}
+
+function showNewGameButton() {
+    new_game.style.display = 'block';
+    new_game.addEventListener('click', () => {
+        location.reload();
+    })
 }
 
