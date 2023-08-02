@@ -1,2 +1,2 @@
 # tic-tac-toe
-tic-tac-toe game made using vanila html css and javascript
+Simple, PvP, tic-tac-toe game made using vanilla html, css and javascript.
